@@ -48,6 +48,16 @@ let getObjectDataSolicitudAdomicilio = () => {
   }).then(response => response.json())
 }
 
+// Peticiones para las solicitudes adomicilio
+let getObjectDataSolicitudAdomicilioItem = (id) => {
+  return fetch(`${ URL_BASE }/movil/solicitud-adomicilio`, {
+    method: 'POST',
+    body: JSON.stringify({
+      id
+    })
+  }).then(response => response.json())
+}
+
 let convertMoneda = (amount, decimals) => {
   amount += '';
   amount = parseFloat(amount.replace(/[^0-9\.]/g, ''));
@@ -89,7 +99,7 @@ let getObjectCitaItem = (id) => {
 }
 
 let updateCitaStatus = (id) => {
-  return fetch(`${URL_BASE}/movil/citas/estado`, {
+  return fetch(`${URL_BASE}/movil/solicitud-adomicilio/informacion`, {
     method: 'POST',
     body: JSON.stringify({
       id
@@ -105,5 +115,6 @@ export {
   loginUsuarioServidor,   
   getObjectDataSolicitud, 
   getObjectDataSolicitudItem, 
-  getObjectDataSolicitudAdomicilio
+  getObjectDataSolicitudAdomicilio,
+  getObjectDataSolicitudAdomicilioItem
 }

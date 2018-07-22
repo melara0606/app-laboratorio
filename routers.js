@@ -20,6 +20,7 @@ import Perfil from './components/Configuration/Perfil'
 import Configuraciones from './components/Configuration/Configuraciones'
 
 import SolicitudAdomicilio from './components/SolicitudAdomicilio/SolicitudAdomicilioComponent'
+import SolicitudAdomicilioDetailComponent from './components/SolicitudAdomicilio/SolicitudAdomicilioDetailComponent'
 
 export const ConfiguracionStack = StackNavigator({
   Configuracion: {
@@ -37,12 +38,12 @@ export const SolicitudAdomicilioStack = StackNavigator({
       title: 'Solicitudes Adomicilio',
     },
   },
-  // Details: {
-  //   screen: SolicitudDetailComponent,
-  //   navigationOptions: ({ navigation }) => ({
-  //     title: `${navigation.state.params.id}`,
-  //   }),
-  // }
+  SolicitudAdomicilioDetails: {
+    screen: SolicitudAdomicilioDetailComponent,
+    navigationOptions: ({ navigation }) => ({
+      title: `${navigation.state.params.id}`,
+    }),
+  }
 });
 
 export const SolicitudStack = StackNavigator({
