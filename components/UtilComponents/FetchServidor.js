@@ -78,8 +78,29 @@ let getObjectDataCitas = () =>{
     .then(json => json.data )
 }
 
+let getObjectCitaItem = (id) => {
+  return fetch(`${URL_BASE}/movil/citas/informacion`, {
+    method: 'POST',
+    body: JSON.stringify({
+      id
+    })
+  }).then(response => response.json())
+    .then(json => json.data )
+}
+
+let updateCitaStatus = (id) => {
+  return fetch(`${URL_BASE}/movil/citas/estado`, {
+    method: 'POST',
+    body: JSON.stringify({
+      id
+    })
+  }).then(response => response.json())
+}
+
 export { 
   convertMoneda,
+  updateCitaStatus,
+  getObjectCitaItem,
   getObjectDataCitas,
   loginUsuarioServidor,   
   getObjectDataSolicitud, 

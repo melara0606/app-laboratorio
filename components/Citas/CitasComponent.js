@@ -50,8 +50,13 @@ export default class Home extends React.Component {
               citas.map((item) => {
                 return (
                   <ListItem
-                    key={item.id} badge={{ value: ((item.estado == 1) ? "Iniciada" : "Cancelada") }} 
+                    key={item.id} 
                     title={`${moment(item.fecha).format('LL')}`} subtitle={`${item.horario}`}
+                    onPress={() => {
+                      this.props.navigation.navigate('CitaDetails', { 
+                        id: item.id
+                      });                    
+                    }}
                   />
                 )
               })

@@ -13,6 +13,7 @@ import SolicitudComponent from './components/Solicitudes/SolicitudComponent'
 import SolicitudDetailComponent from './components/Solicitudes/SolicitudDetailComponent'
 
 import CitasComponent from './components/Citas/CitasComponent'
+import CitasDetailComponent from './components/Citas/CitasDetailComponent'
 
 // Perfil y configuraciones
 import Perfil from './components/Configuration/Perfil'
@@ -66,12 +67,12 @@ export const CitasStack = StackNavigator({
       title: 'Citas',
     },
   },
-  // Details: {
-  //   screen: CitasDetailComponent,
-  //   navigationOptions: ({ navigation }) => ({
-  //     title: `${navigation.state.params.id}`,
-  //   }),
-  // }
+  CitaDetails: {
+    screen: CitasDetailComponent,
+    navigationOptions: ({ navigation }) => ({
+      title: `Detalle ${navigation.state.params.id}`,
+    }),
+  }
 });
 
 export const Tabs = TabNavigator(
