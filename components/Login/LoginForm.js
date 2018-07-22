@@ -1,19 +1,20 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react'
+
 import { 
   View,
-  StyleSheet,
-  TouchableOpacity,
-  ActivityIndicator,
   Text,
   Alert,
-  AsyncStorage
-} from 'react-native';
+  StyleSheet,
+  AsyncStorage,
+  TouchableOpacity
+} from 'react-native'
 
 import t from 'tcomb-form-native';
 
-import { postLogin, URL_BASE } from '../utils'
+import IndicatorComponent from '../UtilComponents/IndicatorComponent'
 
 const Form = t.form.Form;
+
 const formStyles = {
   ...Form.stylesheet,
   textbox: {
@@ -57,37 +58,34 @@ const options = {
   },
 };
 
+import {loginUsuarioServidor} from '../UtilComponents/FetchServidor'
+
 export default class LoginForm extends Component {
   state = {
     isLoggind: true,
     formData: {}
   }
+
   onButtonPress = () => {
-    const value = this.refs.form.getValue();
-    if(value){
-      postLogin(value.username, value.password)
-        .then(json => {
-          if(json.response){
-            try {
-              AsyncStorage.setItem('@MySuperStore:key', JSON.stringify(json.data), () => {
-                this.props.navigation.navigate('Tabs');
-                Alert.alert(
-                  'Bienvenido(a)', 
-                  `${json.data.name_pac} ${json.data.lastname_pac}` 
-                )                
-                this.setState({ isLoggind: true })
-              })
-            } catch (error) { 
-              this.setState({ isLoggind: true })
-            }
-          }else{
-            Alert.alert( 'Error', json.message )
-            this.setState({ isLoggind: true })
-          }
+    const {username, password} = this.refs.form.getValue();
+    loginUsuarioServidor(username, password).then(json => {
+      if(json.response){
+        this.props.navigation.navigate('Tabs');
+        let { name_pac, lastname_pac } = json.data
+        global.credentials = JSON.stringify(json.data)
+        AsyncStorage.setItem('@MySuperStore:key', global.credentials, () => {
+          Alert.alert(
+            'Bienvenido(a)', `${name_pac} ${lastname_pac}` 
+          )
+          this.setState({ isLoggind: true })
         })
-      this.setState({ isLoggind: false })
-    }
+      }else{
+        this.setState({ isLoggind: true })
+        Alert.alert( 'Error', json.message )
+      }
+    })
   }
+  
   getFormLogin() {
     return(
       <View style={styles.container}>
@@ -96,7 +94,8 @@ export default class LoginForm extends Component {
           type={User}
           options={options}
           value={this.state.formDatas} />
-        <TouchableOpacity style={styles.buttonContainer} onPress={this.onButtonPress}>
+        <TouchableOpacity style={styles.buttonContainer} 
+          onPress={this.onButtonPress}>
           <Text style={styles.buttonText}>Entrar</Text>
         </TouchableOpacity>
       </View>
@@ -105,7 +104,7 @@ export default class LoginForm extends Component {
   getSpinnerLoggin() {
     return(
       <View style={styles.container}>
-        <ActivityIndicator style={styles.indicator} size={1} color="#68BCFF" />
+        <IndicatorComponent />
       </View>
     )
   }
@@ -113,7 +112,7 @@ export default class LoginForm extends Component {
     const isLoggind = this.state.isLoggind
     return (
       <View>
-        { isLoggind ? this.getFormLogin() : this.getSpinnerLoggin() }
+        { isLoggind ? this.getFormLogin() : this.getSpinnerLoggin() }             
       </View>
     );
   }

@@ -1,25 +1,27 @@
-import React, { Component } from 'react';
+import React from 'react'
+
 import { 
   View, 
   Image,
   StyleSheet,
   KeyboardAvoidingView
-} from 'react-native';
+} from 'react-native'
 
 import LoginForm from './LoginForm'
 
-export default class Login extends Component {
-  render() {
-    return (
-      <KeyboardAvoidingView behavior="padding" style={styles.container}>
-        <View style={styles.loginContainer}>
-          <Image resizeMode="contain" style={styles.logo} source={require('../../assets/logoprincipal.png')} />
-        </View>
-        <LoginForm navigation={this.props.navigation} />
-      </KeyboardAvoidingView >
-    );
-  }
+const LoginComponent = (props) => {
+  return(
+    <KeyboardAvoidingView behavior="padding" style={styles.container}>
+      <View style={styles.loginContainer}>
+        <Image resizeMode="contain" style={styles.logo} 
+          source={require('../../assets/logoprincipal.png')} />
+      </View>
+      <LoginForm navigation={props.navigation} />
+    </KeyboardAvoidingView >
+  )
 }
+
+export default LoginComponent
 
 const styles = StyleSheet.create({
   container: {

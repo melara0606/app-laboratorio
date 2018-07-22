@@ -1,22 +1,25 @@
-import React, { Component } from 'react';
+import React from 'react';
+
 import { 
   View,   
   Image, 
   StyleSheet,
-  AsyncStorage,
-  ActivityIndicator
+  AsyncStorage
 } from 'react-native';
 
-export default class InitialComponent extends Component {
+import IndicatorComponent from './UtilComponents/IndicatorComponent'
+
+export default class PortadaComponent extends React.Component {
   componentWillMount() {
     try {
       AsyncStorage.getItem('@MySuperStore:key', (err, result) => {
         if(result){
+          global.credentials = result
           this.props.navigation.navigate('Tabs')
         }else{
           this.props.navigation.navigate('Login')
         }
-      })     
+      })
     } catch (error) {  this.props.navigation.navigate('Login') }
   }
 
@@ -24,7 +27,7 @@ export default class InitialComponent extends Component {
   return (
    <View style={styles.container}>
     <Image style={styles.logo} resizeMode="contain" source={require('../assets/logo.png')} />
-    <ActivityIndicator style={styles.indicator} size={1} color="#68BCFF" />
+    <IndicatorComponent />
    </View>
   );
  }
@@ -39,7 +42,8 @@ const styles = StyleSheet.create({
   alignItems: 'center'
  },
  logo: {
-  width: 300
+  width: 300,
+  marginBottom: 30
  },
  indicator:{
   marginTop: 40

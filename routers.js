@@ -1,85 +1,59 @@
 import React from 'react'
+
 import { 
-  TabNavigator, 
-  StackNavigator 
+  TabNavigator, StackNavigator 
 } from 'react-navigation'
 
 import { Icon } from 'react-native-elements'
 
-//Component Initial
-import Initial from './components/Initial'
-
-// Componentes
+import Portada from './components/Portada'
 import Login from './components/Login/Login'
-import Home from './components/Home/Home'
 
-import Me from './components/Me'
-import Feed from './components/Feed'
-import Settings from './components/Settings'
-import UserDetail from './components/UserDetail'
+import SolicitudComponent from './components/Solicitudes/SolicitudComponent'
+import SolicitudDetailComponent from './components/Solicitudes/SolicitudDetailComponent'
 
-// para las citas
-import NuevaCita from './components/Home/NuevaCita'
+// Perfil y configuraciones
+import Perfil from './components/Configuration/Perfil'
+import Configuraciones from './components/Configuration/Configuraciones'
 
-export const FeedStack = StackNavigator({
-  Feed: {
-    screen: Feed,
-    navigationOptions: {
-      title: 'Solicitudes',
-    },
-  },
-  Details: {
-    screen: UserDetail,
-    navigationOptions: ({ navigation }) => ({
-      title: `${navigation.state.params.id}`,
-    }),
-  },
-});
-
-export const Citas = StackNavigator({
-  Home: {
-    screen: Home,
-    navigationOptions: {
-      title: 'Citas',
-    },
-  },
-  NuevaCita: {
-    screen: NuevaCita,
-    navigationOptions: {
-      title: 'Nueva Cita'
-    }
-  }
-});
-
-export const SettingsStack = StackNavigator({
-  Settings: {
-    screen: Settings,
+export const ConfiguracionStack = StackNavigator({
+  Configuracion: {
+    screen: Configuraciones,
     navigationOptions: {
       title: 'Opciones',
     },
   },
 });
 
+
+export const SolicitudStack = StackNavigator({
+  Solicitud: {
+    screen: SolicitudComponent,
+    navigationOptions: {
+      title: 'Solicitudes',
+    },
+  },
+  Details: {
+    screen: SolicitudDetailComponent,
+    navigationOptions: ({ navigation }) => ({
+      title: `${navigation.state.params.id}`,
+    }),
+  }
+});
+
 export const Tabs = TabNavigator(
   {
-    Feed: {
-      screen: FeedStack,
+    Solicitud: {
+      screen: SolicitudStack,
       navigationOptions: {
         tabBarLabel: 'Solicitudes',
         tabBarIcon: ({ tintColor }) => <Icon name='ios-list' type='ionicon' color='white' />
       },
     },
-    Citas: {
-      screen: Citas,
+    Perfil: {
+      screen: Perfil,
       navigationOptions: {
-        tabBarLabel: 'Citas',      
-        tabBarIcon: ({ tintColor }) => <Icon name='ios-keypad' type='ionicon' color='white' />
-      }
-    },
-    Me: {
-      screen: Me,
-      navigationOptions: {
-        tabBarLabel: 'Configuracion',
+        tabBarLabel: 'Perfil',
         tabBarIcon: ({ tintColor }) => <Icon name='ios-settings' type='ionicon' color='white' />
       }
     }
@@ -99,18 +73,18 @@ export default StackNavigator({
   Login: {
     screen: Login,
   },
-  Initial: {
-    screen: Initial
+  Portada: {
+    screen: Portada
   },
   Tabs: {
     screen: Tabs,
   },
   Settings: {
-    screen: SettingsStack,
-  },
+    screen: ConfiguracionStack
+  }
 },{
   mode: 'modal',
   headerMode: 'none',
   activeTintColor: '#F44336',
-  initialRouteName: 'Initial'
+  initialRouteName: 'Portada'
 });

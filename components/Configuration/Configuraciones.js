@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { ScrollView, AsyncStorage }  from 'react-native'
 import { List, ListItem } from 'react-native-elements'
 
-class Settings extends Component {
+class Configuraciones extends Component {
   onPress() {
     AsyncStorage.clear(() => {
       this.props.navigation.navigate('Login')
@@ -19,4 +19,4 @@ class Settings extends Component {
   }
 }
 
-export default Settings
+export default Configuraciones
