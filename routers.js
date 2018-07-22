@@ -18,6 +18,8 @@ import CitasComponent from './components/Citas/CitasComponent'
 import Perfil from './components/Configuration/Perfil'
 import Configuraciones from './components/Configuration/Configuraciones'
 
+import SolicitudAdomicilio from './components/SolicitudAdomicilio/SolicitudAdomicilioComponent'
+
 export const ConfiguracionStack = StackNavigator({
   Configuracion: {
     screen: Configuraciones,
@@ -70,6 +72,12 @@ export const Tabs = TabNavigator(
       screen: CitasStack,
       navigationOptions: {
         tabBarLabel: 'Citas',
+      }
+    },
+    SolicitudAdomicilio: {
+      screen: SolicitudAdomicilioStack,
+      navigationOptions: {
+        tabBarLabel: 'Solicitudes Adomicilio',
         tabBarIcon: ({ tintColor }) => <Icon name='ios-list' type='ionicon' color='white' />
       },
     },

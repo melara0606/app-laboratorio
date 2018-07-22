@@ -35,6 +35,19 @@ let getObjectDataSolicitudItem = (id) => {
   .then(response => response.json() )
 }
 
+// Peticiones para las solicitudes adomicilio
+let getObjectDataSolicitudAdomicilio = () => {
+  let { credentials } = global
+  credentials = JSON.parse(credentials)
+
+  return fetch(`${ URL_BASE }/movil/solicitud-adomicilio`, {
+    method: 'POST',
+    body: JSON.stringify({
+      id: credentials.id
+    })
+  }).then(response => response.json())
+}
+
 let convertMoneda = (amount, decimals) => {
   amount += '';
   amount = parseFloat(amount.replace(/[^0-9\.]/g, ''));
@@ -65,4 +78,10 @@ let getObjectDataCitas = () =>{
     .then(json => json.data )
 }
 
-export { loginUsuarioServidor, getObjectDataSolicitud, getObjectDataSolicitudItem, convertMoneda, getObjectDataCitas }
+export { 
+  convertMoneda,
+  loginUsuarioServidor, 
+  getObjectDataSolicitud, 
+  getObjectDataSolicitudItem, 
+  getObjectDataSolicitudAdomicilio
+}
