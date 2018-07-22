@@ -16,6 +16,8 @@ import SolicitudDetailComponent from './components/Solicitudes/SolicitudDetailCo
 import Perfil from './components/Configuration/Perfil'
 import Configuraciones from './components/Configuration/Configuraciones'
 
+import SolicitudAdomicilio from './components/SolicitudAdomicilio/SolicitudAdomicilioComponent'
+
 export const ConfiguracionStack = StackNavigator({
   Configuracion: {
     screen: Configuraciones,
@@ -25,6 +27,20 @@ export const ConfiguracionStack = StackNavigator({
   },
 });
 
+export const SolicitudAdomicilioStack = StackNavigator({
+  Solicitud: {
+    screen: SolicitudAdomicilio,
+    navigationOptions: {
+      title: 'Solicitudes Adomicilio',
+    },
+  },
+  // Details: {
+  //   screen: SolicitudDetailComponent,
+  //   navigationOptions: ({ navigation }) => ({
+  //     title: `${navigation.state.params.id}`,
+  //   }),
+  // }
+});
 
 export const SolicitudStack = StackNavigator({
   Solicitud: {
@@ -47,6 +63,13 @@ export const Tabs = TabNavigator(
       screen: SolicitudStack,
       navigationOptions: {
         tabBarLabel: 'Solicitudes',
+        tabBarIcon: ({ tintColor }) => <Icon name='ios-list' type='ionicon' color='white' />
+      },
+    },
+    SolicitudAdomicilio: {
+      screen: SolicitudAdomicilioStack,
+      navigationOptions: {
+        tabBarLabel: 'Solicitudes Adomicilio',
         tabBarIcon: ({ tintColor }) => <Icon name='ios-list' type='ionicon' color='white' />
       },
     },
