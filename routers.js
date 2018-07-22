@@ -29,6 +29,21 @@ export const ConfiguracionStack = StackNavigator({
   },
 });
 
+export const SolicitudAdomicilioStack = StackNavigator({
+  Solicitud: {
+    screen: SolicitudAdomicilio,
+    navigationOptions: {
+      title: 'Solicitudes Adomicilio',
+    },
+  },
+  // Details: {
+  //   screen: SolicitudDetailComponent,
+  //   navigationOptions: ({ navigation }) => ({
+  //     title: `${navigation.state.params.id}`,
+  //   }),
+  // }
+});
+
 export const SolicitudStack = StackNavigator({
   Solicitud: {
     screen: SolicitudComponent,
@@ -72,6 +87,7 @@ export const Tabs = TabNavigator(
       screen: CitasStack,
       navigationOptions: {
         tabBarLabel: 'Citas',
+        tabBarIcon: ({ tintColor }) => <Icon name='ios-list' type='ionicon' color='white' />
       }
     },
     SolicitudAdomicilio: {

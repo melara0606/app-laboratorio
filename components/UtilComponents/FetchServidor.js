@@ -80,7 +80,8 @@ let getObjectDataCitas = () =>{
 
 export { 
   convertMoneda,
-  loginUsuarioServidor, 
+  getObjectDataCitas,
+  loginUsuarioServidor,   
   getObjectDataSolicitud, 
   getObjectDataSolicitudItem, 
   getObjectDataSolicitudAdomicilio
