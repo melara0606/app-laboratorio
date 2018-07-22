@@ -70,7 +70,6 @@ export default class LoginForm extends Component {
     const {username, password} = this.refs.form.getValue();
     loginUsuarioServidor(username, password).then(json => {
       if(json.response){
-        this.props.navigation.navigate('Tabs');
         let { name_pac, lastname_pac } = json.data
         global.credentials = JSON.stringify(json.data)
         AsyncStorage.setItem('@MySuperStore:key', global.credentials, () => {
@@ -78,6 +77,7 @@ export default class LoginForm extends Component {
             'Bienvenido(a)', `${name_pac} ${lastname_pac}` 
           )
           this.setState({ isLoggind: true })
+          this.props.navigation.navigate('Tabs');
         })
       }else{
         this.setState({ isLoggind: true })

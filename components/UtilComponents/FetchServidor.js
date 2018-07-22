@@ -2,17 +2,6 @@
 const URL_BASE = "http://10.0.3.2:80/clinica"; // GetMption
 //const URL_BASE = "http://mmfisherst.com/";
 
-// Peticiones Para las citas
-let getObjectCitas =  (results) => {
-  return fetch(`${URL_BASE}/movil/citas`, {
-    method: 'POST',
-    body: JSON.stringify({
-      id: results.id
-    })
-  }).then(response => response.json())
-    .then(json => json.data )
-}
-
 // Funciones para el login de los usuarios
 let loginUsuarioServidor = (username,password) => {
   return fetch(`${URL_BASE}/movil/login`, {
@@ -64,4 +53,16 @@ let convertMoneda = (amount, decimals) => {
   return amount_parts.join('.');
 }
 
-export { loginUsuarioServidor, getObjectDataSolicitud, getObjectDataSolicitudItem, convertMoneda }
+// Peticiones para las citas
+let getObjectDataCitas = () =>{
+  let credentials  = JSON.parse(global.credentials)
+  return fetch(`${URL_BASE}/movil/citas`, {
+    method: 'POST',
+    body: JSON.stringify({
+      id: credentials.id
+    })
+  }).then(response => response.json())
+    .then(json => json.data )
+}
+
+export { loginUsuarioServidor, getObjectDataSolicitud, getObjectDataSolicitudItem, convertMoneda, getObjectDataCitas }

@@ -12,6 +12,8 @@ import Login from './components/Login/Login'
 import SolicitudComponent from './components/Solicitudes/SolicitudComponent'
 import SolicitudDetailComponent from './components/Solicitudes/SolicitudDetailComponent'
 
+import CitasComponent from './components/Citas/CitasComponent'
+
 // Perfil y configuraciones
 import Perfil from './components/Configuration/Perfil'
 import Configuraciones from './components/Configuration/Configuraciones'
@@ -24,7 +26,6 @@ export const ConfiguracionStack = StackNavigator({
     },
   },
 });
-
 
 export const SolicitudStack = StackNavigator({
   Solicitud: {
@@ -41,12 +42,34 @@ export const SolicitudStack = StackNavigator({
   }
 });
 
+export const CitasStack = StackNavigator({
+  Citas: {
+    screen: CitasComponent,
+    navigationOptions: {
+      title: 'Citas',
+    },
+  },
+  // Details: {
+  //   screen: CitasDetailComponent,
+  //   navigationOptions: ({ navigation }) => ({
+  //     title: `${navigation.state.params.id}`,
+  //   }),
+  // }
+});
+
 export const Tabs = TabNavigator(
   {
     Solicitud: {
       screen: SolicitudStack,
       navigationOptions: {
         tabBarLabel: 'Solicitudes',
+        tabBarIcon: ({ tintColor }) => <Icon name='ios-list' type='ionicon' color='white' />
+      },
+    },
+    Citas: {
+      screen: CitasStack,
+      navigationOptions: {
+        tabBarLabel: 'Citas',
         tabBarIcon: ({ tintColor }) => <Icon name='ios-list' type='ionicon' color='white' />
       },
     },
