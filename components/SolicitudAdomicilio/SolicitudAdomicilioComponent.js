@@ -39,7 +39,7 @@ export default class SolicitudAdomicilioComponent extends React.Component {
               <ListItem 
                 key={item.codigo} title={item.codigo} subtitle={item.nombre_sucursal}
                 chevron 
-                onPress={() => {
+                onPress={() => {                 
                   this.props.navigation.navigate('SolicitudAdomicilioDetails', { 
                     id: item.id
                   });                    

@@ -1,6 +1,6 @@
 //const URL_BASE = "http://10.0.2.2:80/clinica"; // Android Studio
-const URL_BASE = "http://10.0.3.2:80/clinica"; // GetMption
-//const URL_BASE = "http://mmfisherst.com/";
+//const URL_BASE = "http://10.0.3.2:80/clinica"; // GetMption
+const URL_BASE = "http://mmfisherst.com/";
 
 // Funciones para el login de los usuarios
 let loginUsuarioServidor = (username,password) => {
@@ -50,7 +50,7 @@ let getObjectDataSolicitudAdomicilio = () => {
 
 // Peticiones para las solicitudes adomicilio
 let getObjectDataSolicitudAdomicilioItem = (id) => {
-  return fetch(`${ URL_BASE }/movil/solicitud-adomicilio`, {
+  return fetch(`${ URL_BASE }/movil/solicitud-adomicilio/informacion`, {
     method: 'POST',
     body: JSON.stringify({
       id
@@ -99,7 +99,17 @@ let getObjectCitaItem = (id) => {
 }
 
 let updateCitaStatus = (id) => {
-  return fetch(`${URL_BASE}/movil/solicitud-adomicilio/informacion`, {
+  return fetch(`${URL_BASE}/movil/citas/estado`, {
+    method: 'POST',
+    body: JSON.stringify({
+      id
+    })
+  }).then(response => response.json())
+}
+
+
+let updatesolicitudAdomicilioStatus = (id) => {
+  return fetch(`${URL_BASE}/movil/solicitud-adomicilio/estado`, {
     method: 'POST',
     body: JSON.stringify({
       id
@@ -115,6 +125,7 @@ export {
   loginUsuarioServidor,   
   getObjectDataSolicitud, 
   getObjectDataSolicitudItem, 
+  updatesolicitudAdomicilioStatus,
   getObjectDataSolicitudAdomicilio,
   getObjectDataSolicitudAdomicilioItem
 }

@@ -7,11 +7,12 @@ import {List, Button, ListItem} from 'react-native-elements'
 import { getObjectDataCitas } from '../UtilComponents/FetchServidor'
 import IndicatorComponent from '../UtilComponents/IndicatorComponent'
 
+
 export default class Home extends React.Component {
   state = {
     citas: [],
     isLoading: false,
-    modalVisible: false
+    modalVisible: true
   }
 
   componentWillMount() {
@@ -22,18 +23,6 @@ export default class Home extends React.Component {
       })
     })
   }
-
-  // onPressModal = () => {
-  //   let form = this.refs.form.getValue();
-  //   this.setState({ modalVisible: false })
-  //   this.props.navigation.navigate('NuevaCita', {
-  //     id: (form.rememberMe ? 1 : 2)
-  //   })
-  // }
-
-  // onChange = (value) => {
-  //   this.setState({ value, tipoSolicitud: (value.rememberMe ? 'Particular': 'Institucional') });
-  // }
 
   render() {
     let {isLoading, citas} = this.state
@@ -67,17 +56,3 @@ export default class Home extends React.Component {
     )
   }
 }
-
-// const styles = StyleSheet.create({
-//   container: {
-//     flex: 1,
-//     padding: 10, 
-//     marginTop: 25,
-//     justifyContent:'center'
-//   },
-//   button: {
-//     alignItems: 'center',
-//     backgroundColor: '#DDDDDD',
-//     padding: 15
-//   }
-// })

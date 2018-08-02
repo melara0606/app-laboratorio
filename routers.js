@@ -41,7 +41,7 @@ export const SolicitudAdomicilioStack = StackNavigator({
   SolicitudAdomicilioDetails: {
     screen: SolicitudAdomicilioDetailComponent,
     navigationOptions: ({ navigation }) => ({
-      title: `${navigation.state.params.id}`,
+      title: `Detalles solicitud Adomicilio`,
     }),
   }
 });

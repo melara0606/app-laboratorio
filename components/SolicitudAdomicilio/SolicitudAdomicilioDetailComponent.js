@@ -4,21 +4,21 @@ import {
   ScrollView
 } from 'react-native'
 
-import moment from 'moment'
-
 import { List, ListItem } from 'react-native-elements'
 
 import Toast from 'react-native-easy-toast'
 
 import IndicatorComponent from '../UtilComponents/IndicatorComponent'
-import { getObjectCitaItem, convertMoneda, updateCitaStatus } from '../UtilComponents/FetchServidor'
+import { getObjectDataSolicitudAdomicilioItem, convertMoneda, updatesolicitudAdomicilioStatus } from '../UtilComponents/FetchServidor'
 import SolicitudModalComponent from '../Solicitudes/SolicitudModalComponent'
+import SolicitudMapModalComponent from './SolicitudMapModalComponent'
 
 export default class CitasDetailComponent extends React.Component {
   state = {
     item: {},
     isLoading: true,
-    modalVisible: false
+    modalVisible: false,
+    modalMapVisible: false
   }
 
   onPressModalButton = () => {
@@ -27,11 +27,17 @@ export default class CitasDetailComponent extends React.Component {
     })
   }
 
+  onPressModalMapButton = () => {
+    this.setState({
+      modalMapVisible: false
+    })
+  }
+
   handleStatusCita() {
     let {item} = this.state
     if(item.estado == 1){
       let { id } = this.props.navigation.state.params   
-      updateCitaStatus(id).then(j => {
+      updatesolicitudAdomicilioStatus(id).then(j => {
         item.estado = 0
         this.refs.toast.show(j.message, 500);      
         this.setState({ item, })
@@ -44,9 +50,9 @@ export default class CitasDetailComponent extends React.Component {
   componentWillMount = () => {
     let { id } = this.props.navigation.state.params
 
-    getObjectCitaItem(id).then(j => {
-      this.setState({ 
-        item: j, 
+    getObjectDataSolicitudAdomicilioItem(id).then(j => {
+      this.setState({
+        item: j.data,
         isLoading: false
       })
     })
@@ -56,27 +62,25 @@ export default class CitasDetailComponent extends React.Component {
     if(this.state.isLoading) 
       return <IndicatorComponent />
 
-    let { item, modalVisible } = this.state
+    let { item, modalVisible, modalMapVisible } = this.state
     let estado = (item.estado == 1) ? "Iniciada" : "Cancelada"
-    let fechaFormato = moment(item.fecha).format('LLL')
-  
+
     return(
       <ScrollView>
         <List>
+          <ListItem  title="Codigo" rightTitle={`${item.codigo}`}  hideChevron />
           <ListItem  title="Sucursal" rightTitle={`${item.nombre_sucursal}`}  hideChevron />
-          <ListItem  title="Horario" rightTitle={`${item.horario}`}  hideChevron />
-          <ListItem  title="Fecha" rightTitle={`${fechaFormato}`}  hideChevron />
           <ListItem  title="Pagar" rightTitle={`$ ${convertMoneda(item.pagar, 2)}`}  hideChevron />
           <ListItem  title="Estado" rightTitle={`${estado}`}  hideChevron />
 
-          <ListItem badge={{ value: item.examenes.length }} onPress={() => this.setState({ modalVisible: true }) }
-            title="Mostrar Examenes" />
+          <ListItem badge={{ value: item.examenes.length }}  
+            onPress={() => this.setState({ modalVisible: true }) }
+            title="Mostrar Examenes" 
+          />
         </List>
 
         <List>
-          <ListItem  
-            // chevronColor="#e74c3c"
-            // containerStyle={{ backgroundColor: '#e74c3c' }}
+          <ListItem
             chevronColor="white"
             title={ (item.estado == 1) ? 'Cancelar la solicitud' : 'Solicitud cancelada' }
             leftIcon={{
@@ -84,7 +88,19 @@ export default class CitasDetailComponent extends React.Component {
             }}
             onPress={this.handleStatusCita.bind(this)}
           />
-        </List>     
+          <ListItem
+            chevronColor="white"
+            title='Ver Ubicacion'            
+            onPress={ () => {
+              this.setState({
+                modalMapVisible: true
+              })
+            }}
+          />
+        </List> 
+
+        <SolicitudModalComponent modalVisible={ modalVisible } items={ item.examenes } onPress={this.onPressModalButton} />   
+        <SolicitudMapModalComponent modalVisible={ modalMapVisible } items={ item } onPress={this.onPressModalMapButton} /> 
 
         <Toast 
           ref="toast"
@@ -94,7 +110,7 @@ export default class CitasDetailComponent extends React.Component {
           fadeOutDuration={1000}
           opacity={0.8}
         />
-        <SolicitudModalComponent modalVisible={ modalVisible } items={ item.examenes } onPress={this.onPressModalButton} />
+        
       </ScrollView>      
     )
   }
